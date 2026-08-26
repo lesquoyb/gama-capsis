@@ -1,4 +1,4 @@
-# GAMA ↔ CAPSIS link (CAPSIS server + GAMA agent)
+# GAMA - CAPSIS link (CAPSIS server + GAMA agent)
 
 This repository contains a **single GAMA (GAML) file** that demonstrates how to **connect a GAMA model to CAPSIS** by communicating with CAPSIS through a **TCP server**.
 
@@ -13,29 +13,29 @@ It is primarily an **experimental / exploratory model**: it provides a set of **
   - manage the communication channel (IP/port).
 - An example experiment (typically named **`test`**) that adds a **CAPSIS panel** on the left side with **buttons**.
   - Each button triggers one of the functions, so you can test the connection and behaviors interactively.
+ 
 
 ## Intended usage
 
 This model is meant **to experiment and understand the integration**.
 
-In a real project, you would generally **not rely on clicking buttons manually**. Instead, you would:
+In a real project, you would probably not use buttons but instead you would:
 
 - **reuse the functions** provided in this file, and
 - **call them at the appropriate moments** in your own GAMA model logic (e.g., during `init`, at specific simulation steps, or in response to events/agents’ decisions).
 
-In other words: the “button-driven” workflow is a convenient *test harness*, not the intended production workflow.
 
 ## Requirements
 
 ### 1) GAMA
-You need a working GAMA installation to run the `.gaml` file.
+You need a working GAMA installation to run the `.gaml` file. The model has been developed to work with GAMA-2025-06 and is not compatible with the 2026 versions.
 
 ### 2) CAPSIS + the TCP server script/class
 The connection requires a CAPSIS-side TCP server component (referenced in the model as something like `forceps.maelia.TCPServer`).
 
-This CAPSIS script/class may **not be included** in this repository. From the project context, it was developed separately and was available in the **CAPSIS SVN repository**.
+This CAPSIS script/class **is not included** in this repository. It was developed separately and is available in the **CAPSIS SVN repository**.
 
-If you don’t have it, the example cannot fully run end-to-end.
+It is necessary for the coupling to work.
 
 ## Configuration
 
@@ -48,7 +48,7 @@ Two parameters typically control the connection:
 - **Forceps server ip** (default: `localhost`)
 - **Forceps server port** (default: `9123`)
 
-- `localhost` means CAPSIS runs on the **same computer** as GAMA (common case, including on Ubuntu).
+- `localhost` means CAPSIS runs on the **same computer** as GAMA, if not you must give the actual IP of the machine running CAPSIS and make sure that it is reachable from the one running gama.
 - The port must match on both sides. In this example workflow, **GAMA starts CAPSIS and specifies the port**, then communicates on that same port.
   - Change it only if you have a port conflict or if CAPSIS is started separately with another port.
 
